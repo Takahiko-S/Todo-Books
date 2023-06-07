@@ -14,7 +14,7 @@ class BooksController extends Controller
     {
         $books = Book::all();
 
-        return view('books',['books'=>$books]);
+        return view('contents.books',['books'=>$books]);
     }
 
     /**

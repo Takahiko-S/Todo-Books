@@ -15,7 +15,7 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('books.index')" :active="request()->routeIs('books.index')">
                         {{ __('読書記録') }}
                     </x-nav-link>
                 </div>
@@ -73,7 +73,7 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link :href="route('books.index')" :active="request()->routeIs('books.index')">
                 {{ __('読書記録') }}
             </x-responsive-nav-link>
         </div>
