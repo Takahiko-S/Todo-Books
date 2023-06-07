@@ -9,12 +9,25 @@
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" >
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <!-- Bootstrap CSS -->
+        <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
+        <link href="{{asset('jquery-ui-1.13.2/jquery-ui.min.css')}}" rel="stylesheet">
+        <link href="{{asset('css/lightbox.min.css')}}" rel="stylesheet">
+        <link href="{{asset('css/custom.css')}}" rel="stylesheet">
+
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+        <script src="{{asset('js/jquery-3.6.3.min.js')}}"></script>
+        <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
+        <script src="{{asset('jquery-ui-1.13.2/jquery-ui.min.js')}}"></script>
+        <script src="{{asset('js/lightbox.min.js')}}"></script>
     </head>
     <body class="font-sans antialiased">
+
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
             @include('layouts.navigation')
 
@@ -31,6 +44,9 @@
             <main>
                 {{ $slot }}
             </main>
+
+
+
         </div>
     </body>
 </html>
