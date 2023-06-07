@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BooksController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,11 +16,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {return view('welcome');});
-Route::get('/books', function () {return view('books');});
+Route::resource('books', BooksController::class)->names([
+    'index' => 'books.index',
+    'create' => 'books.create',
+    'store' => 'books.store',
+    'show' => 'books.show',
+    'edit' => 'books.edit',
+    'update' => 'books.update',
+    'destroy' => 'books.destroy',
+])->middleware(['auth', 'verified']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', function () {return view('dashboard');})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
