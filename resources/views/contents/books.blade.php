@@ -16,7 +16,8 @@
            @else
            <p>読書済み</p>
            @endif
-            <a href="/books{{ $book->id }}reviews" class="btn btn-primary mt-3">詳細を見る</a>
+           <a href="{{ route('books.show', ['book' => $book->id]) }}" class="btn btn-primary mt-3">詳細を見る</a>
+
           </div>
         </div>
       </div>

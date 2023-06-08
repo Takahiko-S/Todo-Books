@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class BooksController extends Controller
@@ -36,9 +37,11 @@ class BooksController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(int $id)
     {
-        //
+        $book = Book::findOrFail($id);
+        $reviews = Review::where('book_id', $id)->get();
+        return view('contents.review',compact('book','reviews'));
     }
 
     /**
