@@ -57,7 +57,7 @@
                 @foreach ($books as $book)
                     <div class="col-md-4 mb-4">
                         <div class="card">
-                            <img src="" class="card-img-top" alt="Book Image">
+                            <img src="{{ asset('storage/' . $book->image_path) }}" class="card-img-top" alt="Book Image">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $book->title }}</h5>
                                 <p class="card-text">{{ $book->sakusya }}</p>

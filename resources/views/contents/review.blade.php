@@ -2,8 +2,8 @@
 <x-slot name="title">詳細</x-slot>
 <x-slot name="main">
 <div class="container mt-5">
+    <img class="card-img-top mx-auto" src="{{ asset('storage/' . $book->image_path) }}" alt="Book Image" style ="width:70%; height:auto;">
     <div class="card">
-
         <div class="card-body">
             <h2 class="mb-3">詳細</h2>
             <h5 class="card-text mb-2">書籍名： {{ $book->title }}</h5>

@@ -36,7 +36,13 @@ class BooksController extends Controller
         $book->title = $request->title;
         $book->sakusya = $request->sakusya;
         $book->readend = $request->date;
-        $book->image = $request->imagePath;
+
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('images', 'public');
+            dd($path);
+            $book->image_path = $path;
+        }
 
         $book->save();
 
@@ -58,7 +64,8 @@ class BooksController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        //edit.blade.phpを表示する
+
     }
 
     /**
