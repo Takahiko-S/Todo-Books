@@ -31,7 +31,16 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $book = new Book(); // 新しい Book モデルのインスタンスを作成
+
+        $book->title = $request->title;
+        $book->sakusya = $request->sakusya;
+        $book->readend = $request->date;
+        $book->image = $request->imagePath;
+
+        $book->save();
+
+        return redirect(route('books.index'));
     }
 
     /**

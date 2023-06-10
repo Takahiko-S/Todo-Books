@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->comment('本のタイトル');;
-            $table->string('sakusya')->comment('作者名');;
-            $table->date('readend')->comment('読書終了日');;
+            $table->string('title')->comment('本のタイトル');
+            $table->string('sakusya')->comment('作者名');
+            $table->date('readend')->nullable()->comment('読書終了日');
             $table->string('image_path')->nullable()->comment('画像名');
             $table->timestamps();
         });
