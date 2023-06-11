@@ -24,6 +24,7 @@
         <script src="{{asset('js/jquery-3.6.3.min.js')}}"></script>
 
         <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
+        <script src="{{ asset('js/bootstrap.js') }}"></script>
         <script src="{{asset('jquery-ui-1.13.2/jquery-ui.min.js')}}"></script>
         <script src="{{asset('js/lightbox.min.js')}}"></script>
       {{ $css }}

@@ -65,6 +65,7 @@ class BooksController extends Controller
         $u_id = Auth::user()->id;
         $book = Book::findOrFail($id);//findorfailはBookに指定のidがない場合404を返す
         $reviews = Review::where('book_id', $id)->get();//Reviewモデルからbook_idが$idとお同じものを取得
+        //dd($reviews);
         return view('contents.review',compact('book','reviews','u_id'));
     }
 
