@@ -26,6 +26,7 @@
         <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
         <script src="{{asset('jquery-ui-1.13.2/jquery-ui.min.js')}}"></script>
         <script src="{{asset('js/lightbox.min.js')}}"></script>
+      {{ $css }}
     </head>
     <body>
     @include('layouts.navigation')

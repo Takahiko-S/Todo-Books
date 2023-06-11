@@ -1,10 +1,15 @@
 <x-base-layout>
     <x-slot name="title">読書リスト</x-slot>
+    <x-slot name="css">
+        <style>
+
+        </style>
+        </x-slot>
     <x-slot name="main">
         <div class="container mt-5">
             <h1 class="text-center mb-5">各ユーザー名表示させるの読書リスト</h1>
             <div class="row">
-                <div class="col-mb-8 text-center">
+                <div class="col-12 text-center">
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookModal">
                         新しい本を追加

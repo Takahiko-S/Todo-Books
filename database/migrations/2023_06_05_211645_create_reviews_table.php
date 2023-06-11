@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('u_id')->comment('ユーザーID');  // 追加
             $table->unsignedBigInteger('book_id')->comment('本のID');  // 追加
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
             $table->integer('score')->nullable()->comment('点数');

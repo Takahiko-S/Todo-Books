@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('u_id')->comment('ユーザーID');
             $table->string('title')->comment('本のタイトル');
             $table->string('sakusya')->comment('作者名');
             $table->date('readend')->nullable()->comment('読書終了日');
             $table->string('image_path')->nullable()->comment('画像名');
             $table->timestamps();
+            $table->foreign('u_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
