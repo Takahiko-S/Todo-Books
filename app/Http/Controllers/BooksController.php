@@ -74,7 +74,7 @@ class BooksController extends Controller
      */
     public function edit(string $id)
     {
-        //edit.blade.phpを表示する
+
 
     }
 
@@ -83,7 +83,20 @@ class BooksController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+      //本の編集画面
+        $book_data = Book::find($id);
+        $book_data->title = $request->title;
+        $book_data->sakusya = $request->sakusya;
+        $book_data->readend = $request->date;
+        $book_data->save();
+
+        $review_data = Review::where('book_id',$id)->first();
+        $review_data->score = $request->socore;
+        $review_data->review = $request->review;
+        $review_data->save();
+
+        return redirect(route('review.show', compact('id')));
+
     }
 
     /**

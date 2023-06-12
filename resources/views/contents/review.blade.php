@@ -27,40 +27,72 @@
                         <p class="card-text">この本にはまだレビューがありません。</p>
                     @else
                         @foreach ($reviews as $review)
-
                             <h5 class="card-title mb-2">点数： {{ $review->score }}</h5>
                             <h5 class="card-title my-2">感想</h5>
                             <h5 class="card-text mb-5">{{ $review->review }}</h5>
 
                             {{-- 編集・削除ボタン データ登録したユーザーのみ表示するボタン --}}
                             @if (Auth::id() == $review->u_id)
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ $review->id }}">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#editModal{{ $review->id }}">
                                     編集
                                 </button>
 
-                                <button type="button" class="btn btn-danger ms-5" data-bs-toggle="modal"  data-bs-target="#deletemodal{{ $review->id }}">
+                                <button type="button" class="btn btn-danger ms-5" data-bs-toggle="modal"
+                                    data-bs-target="#deletemodal{{ $review->id }}">
                                     削除
                                 </button>
-                            <div class="modal fade" id="editModal{{ $review->id }}" tabindex="-1"
-                                aria-labelledby="editModal{{ $review->id }}" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="editModal{{ $review->id }}Label">Modal title </h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            ...
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                <div class="modal fade" id="editModal{{ $review->id }}" tabindex="-1"
+                                    aria-labelledby="editModal{{ $review->id }}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editModal{{ $review->id }}Label">Modal
+                                                    title </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="POST" action="{{ route('books.update') }}">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{$book->id}">
+                                                    <div class="mb-3">
+                                                        <label for="title" class="form-label">書籍名</label>
+                                                        <input type="text" class="form-control" id="title"
+                                                            name="title" value="{{ $book->title }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="sakusya" class="form-label">作者名</label>
+                                                        <input type="text" class="form-control" id="sakusya"
+                                                            name="sakusya" value="{{ $book->sakusya }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="readend" class="form-label">読書終了日</label>
+                                                        <input type="text" class="form-control" id="readend"
+                                                            name="readend" value="{{ $book->readend }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="score" class="form-label">点数</label>
+                                                        <input type="text" class="form-control" id="score"
+                                                            name="score" value="{{ $review->score }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="review" class="form-label">感想</label>
+                                                        <textarea class="form-control" id="review" name="review" rows="5" cols="50">{{ $review->review }}</textarea>
+                                                    </div>
+
+                                                    <button type="button" class="btn btn-secondary mt-5"
+                                                    data-bs-dismiss="modal">閉じる</button>
+                                                    <button type="submit" class="btn btn-primary mt-5">保存</button>
+
+
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endif
-                    @endforeach
+                            @endif
+                        @endforeach
                     @endif
 
                 </div>
