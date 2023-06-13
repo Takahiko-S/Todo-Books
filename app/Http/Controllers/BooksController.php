@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class BooksController extends Controller
 {
@@ -14,9 +15,10 @@ class BooksController extends Controller
      */
     public function index()
     {
+        $users = Auth::user();
         $books = Book::all();
 
-        return view('contents.books',['books'=>$books]);
+        return view('contents.books', compact('books', 'users'));
     }
 
     /**
@@ -41,7 +43,6 @@ class BooksController extends Controller
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('images', 'public');
-            //dd($path);
             $book->image_path = $path;
         }
         $book->save();
@@ -60,13 +61,13 @@ class BooksController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(int $id)//$id=booksテーブルのid
+    public function show(int $id) //$id=booksテーブルのid
     {
         $u_id = Auth::user()->id;
-        $book = Book::findOrFail($id);//findorfailはBookに指定のidがない場合404を返す
-        $reviews = Review::where('book_id', $id)->get();//Reviewモデルからbook_idが$idとお同じものを取得
+        $book = Book::findOrFail($id); //findorfailはBookに指定のidがない場合404を返す
+        $reviews = Review::where('book_id', $id)->get(); //Reviewモデルからbook_idが$idとお同じものを取得
         //dd($reviews);
-        return view('contents.review',compact('book','reviews','u_id'));
+        return view('contents.review', compact('book', 'reviews', 'u_id'));
     }
 
     /**
@@ -74,29 +75,27 @@ class BooksController extends Controller
      */
     public function edit(string $id)
     {
-
-
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-      //本の編集画面
+        //本の編集画面
+
         $book_data = Book::find($id);
         $book_data->title = $request->title;
         $book_data->sakusya = $request->sakusya;
-        $book_data->readend = $request->date;
+        $book_data->readend = $request->readend;
         $book_data->save();
 
-        $review_data = Review::where('book_id',$id)->first();
-        $review_data->score = $request->socore;
+        $review_data = Review::where('book_id', $id)->first();
+        $review_data->score = $request->score;
         $review_data->review = $request->review;
         $review_data->save();
 
-        return redirect(route('review.show', compact('id')));
-
+        return redirect(route('books.show', $id));
     }
 
     /**
@@ -104,6 +103,11 @@ class BooksController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $data = Book::find($id);
+        $image = $data->image_path;
+        Storage::delete("public/" . $image);
+        Book::find($id)->delete();
+        Review::where('book_id', $id)->delete();
+        return redirect(route('books.index'));
     }
 }

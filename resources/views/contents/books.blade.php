@@ -4,10 +4,10 @@
         <style>
 
         </style>
-        </x-slot>
+    </x-slot>
     <x-slot name="main">
         <div class="container mt-5">
-            <h1 class="text-center mb-5">各ユーザー名表示させるの読書リスト</h1>
+            <h1 class="text-center mb-5">{{ $users->name }}の読書リスト</h1>
             <div class="row">
                 <div class="col-12 text-center">
                     <!-- Button trigger modal -->
@@ -25,7 +25,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="閉じる"></button>
                                 </div>
-                                <form action="{{route('books.store')}}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('books.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="modal-body">
                                         <!-- input fields for book title, author, etc. -->
@@ -62,7 +62,8 @@
                 @foreach ($books as $book)
                     <div class="col-md-4 mb-4">
                         <div class="card">
-                            <img src="{{ asset('storage/' . $book->image_path) }}" class="card-img-top" alt="Book Image">
+                            <img src="{{ asset('storage/' . $book->image_path) }}" class="card-img-top"
+                                alt="Book Image">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $book->title }}</h5>
                                 <p class="card-text">{{ $book->sakusya }}</p>

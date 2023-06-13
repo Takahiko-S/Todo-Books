@@ -38,10 +38,12 @@
                                     編集
                                 </button>
 
-                                <button type="button" class="btn btn-danger ms-5" data-bs-toggle="modal"
+                                <button type="submit" class="btn btn-danger ms-5" data-bs-toggle="modal"
                                     data-bs-target="#deletemodal{{ $review->id }}">
                                     削除
                                 </button>
+
+                                <!---------------------------------------- 編集モーダル ---------------------------------------------->
                                 <div class="modal fade" id="editModal{{ $review->id }}" tabindex="-1"
                                     aria-labelledby="editModal{{ $review->id }}" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -53,9 +55,9 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form method="POST" action="{{ route('books.update') }}">
+                                                <form method="post" action="{{ route('books.update', $book->id) }}">
+                                                    @method('PUT')
                                                     @csrf
-                                                    <input type="hidden" name="id" value="{$book->id}">
                                                     <div class="mb-3">
                                                         <label for="title" class="form-label">書籍名</label>
                                                         <input type="text" class="form-control" id="title"
@@ -82,11 +84,41 @@
                                                     </div>
 
                                                     <button type="button" class="btn btn-secondary mt-5"
-                                                    data-bs-dismiss="modal">閉じる</button>
+                                                        data-bs-dismiss="modal">閉じる</button>
                                                     <button type="submit" class="btn btn-primary mt-5">保存</button>
 
 
                                                 </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!---------------------------------------- 削除モーダル ---------------------------------------------->
+
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="deletemodal{{ $review->id }}" tabindex="-1"
+                                    aria-labelledby="deletemodal{{ $review->id }}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deletemodal{{ $review->id }}Label">削除確認
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <p>本当に削除しますか？</p>
+                                                <form method="post"
+                                                    action="{{ route('books.destroy', $book->id) }}">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">キャンセル</button>
+                                                    <button type="submit" class="btn btn-primary">削除</button>
+                                                </form>
+
                                             </div>
                                         </div>
                                     </div>
