@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BooksRequest;
 use App\Models\Book;
 use App\Models\Review;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -32,14 +32,13 @@ class BooksController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BooksRequest $request)
     {
         $book = new Book(); // 新しい Book モデルのインスタンスを作成
         $book->u_id = Auth::user()->id;
         $book->title = $request->title;
         $book->sakusya = $request->sakusya;
-        $book->readend = $request->date;
-
+        $book->readend = $request->readend;
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('images', 'public');
@@ -47,13 +46,14 @@ class BooksController extends Controller
         }
         $book->save();
 
-
         $review = new Review();
         $review->u_id = $book->u_id;
         $review->book_id = $book->id;
-        $review->score = $request->socore;
+        $review->score = $request->score;
         $review->review = $request->review;
         $review->save();
+
+
 
         return redirect(route('books.index'));
     }
@@ -80,15 +80,17 @@ class BooksController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(BooksRequest $request, $id)
     {
-        //本の編集画面
 
+
+        //本の編集画面
         $book_data = Book::find($id);
         $book_data->title = $request->title;
         $book_data->sakusya = $request->sakusya;
         $book_data->readend = $request->readend;
         $book_data->save();
+
 
         $review_data = Review::where('book_id', $id)->first();
         $review_data->score = $request->score;

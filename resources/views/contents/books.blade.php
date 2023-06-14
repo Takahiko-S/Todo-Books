@@ -32,18 +32,27 @@
                                         <div class="form-group">
                                             <label for="syoseki" class="form-label">書籍名</label>
                                             <input type="text" id="syoseki"name="title" placeholder="書籍名"
-                                                required>
+                                                value="{{ old('title') }}" required>
+                                            @error('title')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
                                             <label for="sakusya" class="form-label">作者名</label>
                                             <input type="text" id="sakusya" name="sakusya" placeholder="作者名"
-                                                required>
+                                                value="{{ old('sakusya') }}" required>
+                                            @error('sakusya')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
 
                                         </div>
                                         <div class="form-group">
-                                            <label for="date" class="form-label">読書完了日</label>
-                                            <input type="date" id="date" name="date" value="2023-11-10"
-                                                required>
+                                            <label for="readend" class="form-label">読書完了日</label>
+                                            <input type="date" id="readend" name="readend"
+                                                value="{{ old('readend', date('y-m-d')) }}" required>
+                                            @error('readend')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <!-- input field for image -->
                                         <input type="file" name="image">
@@ -86,7 +95,14 @@
 
 
     <x-slot name="script">
-
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                @if ($errors->any())
+                    // ここでモーダルを表示する
+                    $('#bookModal').modal('show');
+                @endif
+            });
+        </script>
     </x-slot>
 
 

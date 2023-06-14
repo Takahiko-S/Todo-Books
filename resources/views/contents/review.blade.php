@@ -61,27 +61,43 @@
                                                     <div class="mb-3">
                                                         <label for="title" class="form-label">書籍名</label>
                                                         <input type="text" class="form-control" id="title"
-                                                            name="title" value="{{ $book->title }}">
+                                                            name="title" value="{{ $book->title }} "required>
+                                                        @error('title')
+                                                            <div class="alert alert-danger">{{ $message }}</div>
+                                                        @enderror
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="sakusya" class="form-label">作者名</label>
                                                         <input type="text" class="form-control" id="sakusya"
-                                                            name="sakusya" value="{{ $book->sakusya }}">
+                                                            name="sakusya" value="{{ $book->sakusya }}"required>
+                                                        @error('sakusya')
+                                                            <div class="alert alert-danger">{{ $message }}</div>
+                                                        @enderror
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="readend" class="form-label">読書終了日</label>
                                                         <input type="text" class="form-control" id="readend"
                                                             name="readend" value="{{ $book->readend }}">
+                                                        @error('readend')
+                                                            <div class="alert alert-danger">{{ $message }}</div>
+                                                        @enderror
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="score" class="form-label">点数</label>
                                                         <input type="text" class="form-control" id="score"
                                                             name="score" value="{{ $review->score }}">
+                                                        @error('score')
+                                                            <div class="alert alert-danger">{{ $message }}</div>
+                                                        @enderror
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="review" class="form-label">感想</label>
                                                         <textarea class="form-control" id="review" name="review" rows="5" cols="50">{{ $review->review }}</textarea>
                                                     </div>
+                                                    @error('review')
+                                                        <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
+
 
                                                     <button type="button" class="btn btn-secondary mt-5"
                                                         data-bs-dismiss="modal">閉じる</button>
@@ -133,6 +149,13 @@
 
     </x-slot>
     <x-slot name="script">
-        <script></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                @if ($errors->any())
+                    // ここでモーダルを表示する
+                    $('#editModal{{ $review->id }}').modal('show');
+                @endif
+            });
+        </script>
     </x-slot>
 </x-base-layout>
