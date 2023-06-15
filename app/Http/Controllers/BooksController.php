@@ -34,11 +34,13 @@ class BooksController extends Controller
      */
     public function store(BooksRequest $request)
     {
+        $checkedRequest = $request->validated();
+
         $book = new Book(); // 新しい Book モデルのインスタンスを作成
         $book->u_id = Auth::user()->id;
-        $book->title = $request->title;
-        $book->sakusya = $request->sakusya;
-        $book->readend = $request->readend;
+        $book->title = $checkedRequest['title'];
+        $book->sakusya = $checkedRequest['sakusya'];
+        $book->readend = $checkedRequest['readend'];
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('images', 'public');
@@ -49,8 +51,8 @@ class BooksController extends Controller
         $review = new Review();
         $review->u_id = $book->u_id;
         $review->book_id = $book->id;
-        $review->score = $request->score;
-        $review->review = $request->review;
+        $review->score = $checkedRequest['score'] ?? null;
+        $review->review = $checkedRequest['review'] ?? null;
         $review->save();
 
 
@@ -66,7 +68,6 @@ class BooksController extends Controller
         $u_id = Auth::user()->id;
         $book = Book::findOrFail($id); //findorfailはBookに指定のidがない場合404を返す
         $reviews = Review::where('book_id', $id)->get(); //Reviewモデルからbook_idが$idとお同じものを取得
-        //dd($reviews);
         return view('contents.review', compact('book', 'reviews', 'u_id'));
     }
 

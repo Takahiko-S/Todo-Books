@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-12 text-center">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookModal">
+                    <button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#bookModal">
                         新しい本を追加
                     </button>
 
